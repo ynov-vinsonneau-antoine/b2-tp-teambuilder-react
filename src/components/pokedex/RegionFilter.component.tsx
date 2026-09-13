@@ -1,4 +1,4 @@
-import { REGIONS } from "../../utils/pokemon.utils";
+import { REGIONS } from "@/utils/pokemon.utils";
 
 type RegionFilterProps = {
   selectedRegion: number | null;

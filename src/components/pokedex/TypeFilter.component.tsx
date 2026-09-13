@@ -3,7 +3,7 @@ import {
   POKEMON_TYPES,
   TYPE_COLORS,
   TYPE_LABELS,
-} from "../../utils/pokemon.utils";
+} from "@/utils/pokemon.utils";
 
 type TypeFilterProps = {
   selectedTypes: string[];

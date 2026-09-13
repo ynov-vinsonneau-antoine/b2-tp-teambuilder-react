@@ -1,9 +1,9 @@
-import useTeamStore from "../../store/team.store";
-import { POKEMON_TYPES, TYPE_LABELS } from "../../utils/pokemon.utils";
-import TypeBadge from "../ui/TypeBadge.component";
+import { useTeamStore } from "@/store/team";
+import { POKEMON_TYPES, TYPE_LABELS } from "@/utils/pokemon.utils";
+import TypeBadge from "@/components/ui/TypeBadge.component";
 
 const TeamRecap = () => {
-  const { team } = useTeamStore();
+  const team = useTeamStore((state) => state.team);
 
   if (team.length === 0) return null;
 

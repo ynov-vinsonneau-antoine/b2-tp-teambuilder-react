@@ -1,10 +1,12 @@
-import useTeamStore, { MAX_TEAM_SIZE } from "../store/team.store";
-import TeamSlots from "../components/team/TeamSlots.component";
-import TeamRecap from "../components/team/TeamRecap.component";
-import TeamWeaknesses from "../components/team/TeamWeaknesses.component";
+import { MAX_TEAM_SIZE, useTeamStore } from "@/store/team";
+import TeamSlots from "@/components/team/TeamSlots.component";
+import TeamRecap from "@/components/team/TeamRecap.component";
+import TeamWeaknesses from "@/components/team/TeamWeaknesses.component";
 
 const TeamPage = () => {
-  const { team } = useTeamStore();
+  // Un sélecteur plutôt que le store entier : la page ne se rerend que
+  // lorsque l'équipe change.
+  const team = useTeamStore((state) => state.team);
 
   return (
     <section>

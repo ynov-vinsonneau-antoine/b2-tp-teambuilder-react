@@ -1,4 +1,4 @@
-import { TYPE_COLORS, TYPE_LABELS } from "../../utils/pokemon.utils";
+import { TYPE_COLORS, TYPE_LABELS } from "@/utils/pokemon.utils";
 
 type TypeBadgeProps = {
   type: string;

@@ -5,6 +5,11 @@
     "lib": ["ES2023", "DOM"],
     "module": "esnext",
     "types": ["vite/client"],
+
+    /* Alias "@/" vers src/, en miroir de vite.config.ts */
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "allowArbitraryExtensions": true,
     "skipLibCheck": true,
 

@@ -1,6 +1,6 @@
-import type { TeamMemberType } from "../../types/pokemon.type";
-import { getSpriteUrl } from "../../utils/pokemon.utils";
-import TypeBadge from "../ui/TypeBadge.component";
+import type { TeamMemberType } from "@/store/team";
+import { getSpriteUrl } from "@/utils/pokemon.utils";
+import TypeBadge from "@/components/ui/TypeBadge.component";
 
 type TeamSlotProps = {
   member?: TeamMemberType;

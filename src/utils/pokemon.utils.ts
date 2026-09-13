@@ -1,7 +1,8 @@
-export const API_URL = "https://pokeapi.co/api/v2";
+import type { PokemonSpeciesType } from "@/store/pokemon";
 
-const SPRITES_URL =
-  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon";
+// Les urls viennent du .env : rien de codé en dur dans le code métier.
+// L'url de l'API, elle, n'est connue que du client HTTP (src/lib/http.ts).
+const SPRITES_URL = import.meta.env.VITE_POKEAPI_SPRITES_URL;
 
 // Les régions du jeu. Chacune correspond à une génération, et
 // /generation/{id} donne la liste des espèces qui y apparaissent.
@@ -99,3 +100,27 @@ export const getSpriteUrl = (id: number) => `${SPRITES_URL}/${id}.png`;
 
 export const getArtworkUrl = (id: number) =>
   `${SPRITES_URL}/other/official-artwork/${id}.png`;
+
+/**
+ * Les textes de l'espèce, en français.
+ *
+ * L'API renvoie ses textes dans toutes les langues. On prend le français, et
+ * l'anglais quand la traduction n'existe pas — c'est le cas des Pokémon les
+ * plus récents. Les descriptions gardent les retours à la ligne du jeu
+ * d'origine : on les remplace par des espaces.
+ */
+export const getSpeciesTexts = (species: PokemonSpeciesType | null) => {
+  const pickFrench = <T extends { language: { name: string } }>(
+    entries: T[] | undefined
+  ) => entries?.find((entry) => entry.language.name === "fr");
+
+  const flavorEntry =
+    pickFrench(species?.flavor_text_entries) ??
+    species?.flavor_text_entries.find((entry) => entry.language.name === "en");
+
+  return {
+    frenchName: pickFrench(species?.names)?.name,
+    genus: pickFrench(species?.genera)?.genus,
+    description: flavorEntry?.flavor_text.replace(/\s+/g, " "),
+  };
+};

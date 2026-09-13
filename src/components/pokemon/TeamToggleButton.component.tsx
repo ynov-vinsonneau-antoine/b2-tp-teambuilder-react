@@ -1,16 +1,17 @@
-import type { TeamMemberType } from "../../types/pokemon.type";
-import useTeamStore, { MAX_TEAM_SIZE } from "../../store/team.store";
-import Button from "../ui/Button.component";
+import { useTeamStore, type TeamMemberType } from "@/store/team";
+import Button from "@/components/ui/Button.component";
 
 type TeamToggleButtonProps = {
   pokemon: TeamMemberType;
 };
 
 const TeamToggleButton = ({ pokemon }: TeamToggleButtonProps) => {
-  const { team, addToTeam, removeFromTeam } = useTeamStore();
+  const addToTeam = useTeamStore((state) => state.addToTeam);
+  const removeFromTeam = useTeamStore((state) => state.removeFromTeam);
 
-  const isInTeam = team.some((member) => member.id === pokemon.id);
-  const isTeamFull = team.length >= MAX_TEAM_SIZE;
+  // La fiche connaît déjà les types : aucun appel réseau ici.
+  const isInTeam = useTeamStore((state) => state.isInTeam(pokemon.id));
+  const isTeamFull = useTeamStore((state) => state.isTeamFull());
 
   if (isInTeam) {
     return (

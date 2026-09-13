@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import type { PokemonType } from "../../types/pokemon.type";
-import { getSpriteUrl } from "../../utils/pokemon.utils";
+import type { PokemonType } from "@/store/pokemon";
+import { getSpriteUrl } from "@/utils/pokemon.utils";
 import TeamIconButton from "./TeamIconButton.component";
 
 type PokemonCardProps = {

@@ -1,7 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
-import useTeamStore, { MAX_TEAM_SIZE } from "../store/team.store";
-import { getSpriteUrl } from "../utils/pokemon.utils";
-import PokeballIcon from "./ui/PokeballIcon.component";
+import { MAX_TEAM_SIZE, useTeamStore } from "@/store/team";
+import { getSpriteUrl } from "@/utils/pokemon.utils";
+import PokeballIcon from "@/components/ui/PokeballIcon.component";
 
 const links = [
   { to: "/", label: "Pokédex", end: true },
@@ -12,7 +12,7 @@ const links = [
 const slots = Array.from({ length: MAX_TEAM_SIZE }, (_, index) => index);
 
 const Layout = () => {
-  const { team } = useTeamStore();
+  const team = useTeamStore((state) => state.team);
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-100">

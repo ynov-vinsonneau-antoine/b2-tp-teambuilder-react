@@ -1,5 +1,5 @@
-import type { PokemonType } from "../../types/pokemon.type";
-import useTeamStore from "../../store/team.store";
+import type { PokemonType } from "@/store/pokemon";
+import { useTeamStore } from "@/store/team";
 import PokemonCard from "./PokemonCard.component";
 
 type PokemonGridProps = {
@@ -7,7 +7,7 @@ type PokemonGridProps = {
 };
 
 const PokemonGrid = ({ pokemons }: PokemonGridProps) => {
-  const { team } = useTeamStore();
+  const team = useTeamStore((state) => state.team);
 
   if (pokemons.length === 0) {
     return (

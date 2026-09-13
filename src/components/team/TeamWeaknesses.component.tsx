@@ -1,25 +1,19 @@
 import { useEffect, useState } from "react";
-import useTeamStore from "../../store/team.store";
 import {
-  API_URL,
+  getTeamDamageRelationsApi,
+  useTeamStore,
+  type TeamDamageRelationsType,
+} from "@/store/team";
+import {
   POKEMON_TYPES,
   TYPE_COLORS,
   TYPE_LABELS,
-} from "../../utils/pokemon.utils";
-
-// Ce que `/type/{nom}` dit du type quand il SUBIT une attaque.
-type DamageRelationsType = {
-  double_damage_from: { name: string }[];
-  half_damage_from: { name: string }[];
-  no_damage_from: { name: string }[];
-};
+} from "@/utils/pokemon.utils";
 
 const TeamWeaknesses = () => {
-  const { team } = useTeamStore();
+  const team = useTeamStore((state) => state.team);
 
-  const [relations, setRelations] = useState<
-    Record<string, DamageRelationsType>
-  >({});
+  const [relations, setRelations] = useState<TeamDamageRelationsType>({});
   const [loading, setLoading] = useState(false);
 
   // L'effet se rejoue à chaque changement d'équipe : on va chercher
@@ -39,17 +33,7 @@ const TeamWeaknesses = () => {
       setLoading(true);
 
       try {
-        const loaded: Record<string, DamageRelationsType> = {};
-
-        for (const type of teamTypes) {
-          const response = await fetch(`${API_URL}/type/${type}`);
-          if (!response.ok) throw new Error(`Erreur ${response.status}`);
-
-          const data = await response.json();
-          loaded[type] = data.damage_relations;
-        }
-
-        setRelations(loaded);
+        setRelations(await getTeamDamageRelationsApi(teamTypes));
       } catch {
         setRelations({});
       } finally {
